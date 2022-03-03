@@ -36,12 +36,6 @@ mkdir -p $CACHE_DIR
 
 cd $BUILD_DIR
 
-# set git credentials
-  print "setting up git configs"
-  git config --global user.name "$ENV_NAME"
-  git config --global user.email "$ENV_EMAIL"
-  git config --global user.password "$ENV_PASSWORD"
-
 if [ -d "$CACHE_DIR/flutter" ]; then
   print "Restoring Flutter SDK from CACHE"
   cp -R $CACHE_DIR/flutter $BUILD_DIR
@@ -83,6 +77,10 @@ print "Getting packages from Flutter project"
 flutter/bin/flutter pub get --quiet | indent
 
 PATH="$PATH":"$(pwd)/flutter/bin/"
+
+print "printing current path $pwd"
+
+print "printing path $PATH"
 
 if [ -z "$FLUTTER_BUILD" ]; then
   FLUTTER_BUILD="flutter build web --release --quiet"
